@@ -1,0 +1,1 @@
+export type{ VestingCreatedEvent } from "./vesting-created-event";

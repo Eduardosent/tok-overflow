@@ -1,0 +1,5 @@
+export { Navbar } from "./navbar"
+export { Hero } from "./hero"
+export { Pillars } from "./pillars"
+export { Vision } from "./vision"
+export { Features } from "./features"

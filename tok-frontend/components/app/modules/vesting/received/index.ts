@@ -1,0 +1,1 @@
+export { VestingComponent } from "./vesting-component";
