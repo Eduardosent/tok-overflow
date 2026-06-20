@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 
 interface VestingComponentProps {
   vesting: any;
+  onClaim?: () => void; // Added onClaim event prop
 }
 
 const formatAmount = (amount: string, decimals: number) => {
@@ -48,8 +49,7 @@ const getStatusColor = (status: string) => {
   }
 };
 
-export function VestingComponent({ vesting }: VestingComponentProps) {
-  // Local ticker state to manage live clock ticks independently per card
+export function VestingComponent({ vesting, onClaim }: VestingComponentProps) {
   const [timeNow, setTimeNow] = useState<number>(Date.now());
 
   useEffect(() => {
@@ -136,7 +136,10 @@ export function VestingComponent({ vesting }: VestingComponentProps) {
             <span className="text-[11px] text-green-600 font-medium">
               {formatAmount(String(availableToClaim), decimals)} {symbol} ready
             </span>
-            <button className="text-xs font-semibold px-4 py-2 rounded-lg bg-primary text-white hover:opacity-90 transition-opacity shadow-sm">
+            <button 
+              onClick={onClaim} // Assigned onClaim event here
+              className="text-xs font-semibold px-4 py-2 rounded-lg bg-primary text-white hover:opacity-90 transition-opacity shadow-sm"
+            >
               Claim {formatAmount(String(availableToClaim), decimals)} {symbol}
             </button>
           </>

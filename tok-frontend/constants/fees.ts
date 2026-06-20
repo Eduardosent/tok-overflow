@@ -14,7 +14,10 @@ export const FEES = {
   VESTING: {
     CREATE: [
       { label: "Tok Fee", amount: BigInt(1_000_000) },
-      { label: "Network Fee", amount: BigInt(3_500_000 ) },
+      { label: "Network Fee", amount: BigInt(4_500_000 ) },
+    ],
+    CLAIM: [
+      { label: "Network Fee", amount: BigInt(1_500_000) },
     ],
   }
 };

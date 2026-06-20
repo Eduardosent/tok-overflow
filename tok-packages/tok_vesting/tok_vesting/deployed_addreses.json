@@ -1,0 +1,22 @@
+{
+  "project": "TOK_VESTING",
+  "network": "testnet",
+  "packageId": "0x2e802e5d290de9ff149e301a4d74be1532472f9fad7c366c96b3d20a2c040de1",
+  "upgradeCapId": "0x68095555f66180737d02ed3e4ed437fcf26f9c35bb3f0607abaa42304a739c2c",
+  "transactionDigest": "86gYrLGDL4t9pKAiAXfd2KW7M8GmTC3ndbwK4oPqaMi9",
+  "deployer": "0x6b5ca4eecb6ee987e6eefc760cc5b59493c4258390d514999d26405e1b6b6d3e",
+  "gasUsed": {
+    "total_sui": 0.01633148,
+    "total_mist": 16331480,
+    "computation": 1000000,
+    "storage_net": 15331480
+  },
+  "timestamp": "2026-06-13T00:00:00Z",
+  "modules": [
+    "vesting"
+  ],
+  "fees": {
+    "vesting_fee_obj": "0xa7ab16ecd86f8cc58cc71e1a8701dba7b8693fb26065b4db285e2015a396ea6b",
+    "price_sui": 10000000
+  }
+}

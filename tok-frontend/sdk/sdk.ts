@@ -2,10 +2,10 @@ import { VestingCreatedEvent } from '@/types/events';
 import { EventId, SuiJsonRpcClient } from '@mysten/sui/jsonRpc';
 import { Transaction } from '@mysten/sui/transactions';
 
-const VESTING_PACKAGE = "0x18416f1983b89fd271a4da1403f71288db491438a802b32f05738e66110273df";
-const VESTING_FEE_ID = "0x209826d00371e3186dd899d00358f778aba71fee3d9523c913d5f354377fe805";
-const STAKING_PACKAGE = "0x4268f3d9ff7c47126184d824f52c6f41a25c21837bdeb22bc0f170d2acf60ac1";
-const STAKING_FEE_ID = "0x76e73c409420757b9a4896f31b8267d0f19e0e9b023b380448483a8c2e5ea991";
+const VESTING_PACKAGE = "0x2e802e5d290de9ff149e301a4d74be1532472f9fad7c366c96b3d20a2c040de1";
+const VESTING_FEE_ID = "0xa7ab16ecd86f8cc58cc71e1a8701dba7b8693fb26065b4db285e2015a396ea6b";
+const STAKING_PACKAGE = "0x9c574ca2f0fd43d5c893e911e9f6d37f104a01ff3efd1e14876af195517d3a5f";
+const STAKING_FEE_ID = "0x3fd5f91e8c698bb083555238af8aacf5daa06c3a361150306de0cf5b4c4d516f";
 const CLOCK = "0x6";
 
 export class VestingModule {
@@ -70,15 +70,15 @@ export class VestingModule {
         return tx;
     }
 
-    async getVestingsByRecipient(
+    async getVestingsBySender(
         client: SuiJsonRpcClient,
-        recipientAddress: string,
+        senderAddress: string,
         packageId: string = VESTING_PACKAGE
     ): Promise<VestingCreatedEvent[]> {
         const events: VestingCreatedEvent[] = [];
         let cursor: EventId | null = null; 
         let hasNextPage = true;
-
+    
         while (hasNextPage) {
             const response = await client.queryEvents({
                 query: {
@@ -87,7 +87,7 @@ export class VestingModule {
                 limit: 50,
                 cursor: cursor || undefined,
             });
-
+        
             const filtered = response.data
                 .map((event: any) => {
                     const parsed = event.parsedJson as VestingCreatedEvent;
@@ -96,20 +96,20 @@ export class VestingModule {
                         timestamp: event.timestampMs ? Number(event.timestampMs) : 0,
                     };
                 })
-                .filter((parsed) => parsed && parsed.to === recipientAddress);
-
+                .filter((parsed) => parsed && parsed.from === senderAddress);
+            
             events.push(...filtered);
-
+            
             if (response.hasNextPage && response.nextCursor) {
                 cursor = response.nextCursor;
             } else {
                 hasNextPage = false;
             }
         }
-
+    
         // Sort by timestamp descending (newest first)
         events.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
-
+    
         return events;
     }
 

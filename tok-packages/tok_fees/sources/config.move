@@ -1,5 +1,8 @@
 module tok_fees::config {
 
+    /// Error code for unauthorized Cap usage.
+    const EWrongCap: u64 = 0;
+
     /// Administrative capability granted to the deployer on initialization.
     /// Required to call any admin function on GlobalTreasury.
     public struct AdminCap has key, store {
@@ -14,6 +17,12 @@ module tok_fees::config {
         fee: u64           // base creation fee in MIST
     }
 
+    /// Capability granted to the fee creator to authorize updates.
+    public struct FeeAdminCap has key, store {
+        id: UID,
+        fee_id: ID, // Linked to the specific fee object ID
+    }
+
     fun init(ctx: &mut TxContext) {
         // create and transfer AdminCap to the deployer
         let admin_cap = AdminCap {
@@ -25,9 +34,25 @@ module tok_fees::config {
         let treasury = GlobalTreasury {
             id: object::new(ctx),
             treasury: tx_context::sender(ctx),
-            fee: 10000, // default: 10000 MIST, adjustable via update_fee
+            fee: 10000000, // default: 10000000 MIST, adjustable via update_fee
         };
         transfer::share_object(treasury);
+    }
+
+    // === Shared Admin Logic ===
+
+    /// Validates that the provided FeeAdminCap matches the targeted fee object ID.
+    public fun assert_cap_match(cap: &FeeAdminCap, fee_id: ID) {
+        assert!(cap.fee_id == fee_id, EWrongCap);
+    }
+
+    /// Creates the capability and transfers it immediately to the recipient.
+    public fun create_and_transfer_admin_cap(fee_id: ID, recipient: address, ctx: &mut TxContext) {
+        let cap = FeeAdminCap {
+            id: object::new(ctx),
+            fee_id
+        };
+        transfer::public_transfer(cap, recipient);
     }
 
     // === Getters ===

@@ -20,12 +20,12 @@ export function useCreateToken() {
         if (!account) throw new Error("Connect your wallet");
 
         if (BigInt(mist) < calculateTotal(FEES.FACTORY.TOKEN_CREATION)) {
-          throw new Error("Insufficient balance for the transaction");
+            throw new Error("Insufficient balance for the transaction");
         }
 
         const sdk = new TokFactory();
 
-        // 1. Crear el contrato
+        // 1. Initiate contract creation
         const tx = await sdk.createToken({
             network: "testnet",
             senderAddress: account.address,
@@ -34,42 +34,62 @@ export function useCreateToken() {
 
         await tx.build({ client });
 
-        // 2. Ejecutar primera transacción
+        // 2. Execute the first transaction block
         signTransaction({ transaction: tx }, {
             onSuccess: async (result) => {
-                const txDetails = await client.getTransactionBlock({
-                    digest: result.digest,
-                    options: {
-                        showObjectChanges: true,
-                        showEffects: true,
-                    },
-                });
-                
-                // 3. Preparar la segunda transacción de finalización
-                const finalizeTx = await sdk.finalizeToken(account.address, txDetails);
-                await finalizeTx.build({ client });
+                let txDetails;
+                let retries = 0;
+                const maxRetries = 5;
 
-                // 4. Firmar y ejecutar la segunda transacción
-                signTransaction({ transaction: finalizeTx }, {
-                    onSuccess: (finalResult) => {
-                        const digest = finalResult.digest;
-                        const explorerUrl = `https://testnet.suivision.xyz/txblock/${digest}`;
-
-                        toast.success("Token creado con éxito", {
-                            description: "La transacción ha sido confirmada.",
-                            action: {
-                                label: "Ver en Explorer",
-                                onClick: () => window.open(explorerUrl, "_blank"),
+                // Polling to ensure the indexer has processed the transaction
+                while (retries < maxRetries) {
+                    try {
+                        txDetails = await client.getTransactionBlock({
+                            digest: result.digest,
+                            options: {
+                                showObjectChanges: true,
+                                showEffects: true,
                             },
                         });
-                    },
-                    onError: (err) => {
-                        toast.error("Error al finalizar: " + err.message);
+                        break;
+                    } catch (e) {
+                        retries++;
+                        if (retries >= maxRetries) {
+                            throw new Error("Timeout: Failed to index the transaction after multiple attempts.");
+                        }
+                        await new Promise((resolve) => setTimeout(resolve, 1500));
                     }
-                });
+                }
+                
+                // 3. Prepare the finalization transaction
+                try {
+                    const finalizeTx = await sdk.finalizeToken(account.address, txDetails);
+                    await finalizeTx.build({ client });
+
+                    // 4. Sign and execute the finalization transaction
+                    signTransaction({ transaction: finalizeTx }, {
+                        onSuccess: (finalResult) => {
+                            const digest = finalResult.digest;
+                            const explorerUrl = `https://testnet.suivision.xyz/txblock/${digest}`;
+
+                            toast.success("Token successfully created", {
+                                description: "The transaction has been confirmed on-chain.",
+                                action: {
+                                    label: "View on Explorer",
+                                    onClick: () => window.open(explorerUrl, "_blank"),
+                                },
+                            });
+                        },
+                        onError: (err) => {
+                            toast.error("Finalization failed: " + err.message);
+                        }
+                    });
+                } catch (finalizeError: any) {
+                    toast.error("Error preparing finalization: " + finalizeError.message);
+                }
             },
             onError: (err) => {
-                throw err;
+                toast.error("First transaction failed: " + err.message);
             }
         });
     };

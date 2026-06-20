@@ -3,7 +3,7 @@ module tok_fees::single_token {
     use sui::coin::{Self, Coin};
     use sui::sui::SUI;
     use sui::clock::{Self, Clock};
-    use tok_fees::config::{Self, GlobalTreasury};
+    use tok_fees::config::{Self, GlobalTreasury, FeeAdminCap};
 
     /// Fee object for a single token type.
     /// Owned by the service creator after paying the protocol creation fee.
@@ -25,7 +25,7 @@ module tok_fees::single_token {
 
     /// Creates a SingleTokenFee object for token T.
     /// Charges the protocol creation fee in SUI before creating the object.
-    /// The created object is transferred to the caller.
+    /// The created object is shared and the Admin Cap transferred to the caller.
     public fun create_fee<T>(
         global_treasury: &GlobalTreasury,
         payment: Coin<SUI>,
@@ -50,7 +50,12 @@ module tok_fees::single_token {
             lock_period
         };
 
-        transfer::public_transfer(fee_obj, ctx.sender());
+        // Create the Admin Cap linked to this new object
+        let fee_id = object::id(&fee_obj);
+        config::create_and_transfer_admin_cap(fee_id, ctx.sender(), ctx);
+
+        // Make the object shared so everyone can call pay_fee
+        transfer::public_share_object(fee_obj);
     }
 
     /// Accepts a payment in token T and forwards it to the recipient.
@@ -82,35 +87,40 @@ module tok_fees::single_token {
 
     // === Admin Functions ===
 
-    /// Updates the price charged per payment. Requires lock period to have expired.
-    public fun update_price<T>(self: &mut SingleTokenFee<T>, new_price: u64, clock: &Clock) {
+    /// Updates the price charged per payment. Requires lock period to have expired and FeeAdminCap.
+    public fun update_price<T>(cap: &FeeAdminCap, self: &mut SingleTokenFee<T>, new_price: u64, clock: &Clock) {
+        config::assert_cap_match(cap, object::id(self));
         assert_lock_expired(self, clock);
         self.price = new_price;
         self.last_update = clock::timestamp_ms(clock);
     }
 
-    /// Updates the recipient address for incoming payments. Requires lock period to have expired.
-    public fun update_recipient<T>(self: &mut SingleTokenFee<T>, new_recipient: address, clock: &Clock) {
+    /// Updates the recipient address for incoming payments. Requires lock period to have expired and FeeAdminCap.
+    public fun update_recipient<T>(cap: &FeeAdminCap, self: &mut SingleTokenFee<T>, new_recipient: address, clock: &Clock) {
+        config::assert_cap_match(cap, object::id(self));
         assert_lock_expired(self, clock);
         self.recipient = new_recipient;
         self.last_update = clock::timestamp_ms(clock);
     }
 
-    /// Updates the lock period duration. Requires current lock period to have expired.
-    public fun update_lock_period<T>(self: &mut SingleTokenFee<T>, new_period: u64, clock: &Clock) {
+    /// Updates the lock period duration. Requires current lock period to have expired and FeeAdminCap.
+    public fun update_lock_period<T>(cap: &FeeAdminCap, self: &mut SingleTokenFee<T>, new_period: u64, clock: &Clock) {
+        config::assert_cap_match(cap, object::id(self));
         assert_lock_expired(self, clock);
         self.lock_period = new_period;
         self.last_update = clock::timestamp_ms(clock);
     }
 
-    /// Activates or deactivates the fee object.
+    /// Activates or deactivates the fee object. Requires FeeAdminCap.
     /// Intentionally excluded from the time lock to allow emergency pausing.
-    public fun set_active<T>(self: &mut SingleTokenFee<T>, status: bool) {
+    public fun set_active<T>(cap: &FeeAdminCap, self: &mut SingleTokenFee<T>, status: bool) {
+        config::assert_cap_match(cap, object::id(self));
         self.active = status;
     }
 
-    /// Permanently deletes the fee object. Requires lock period to have expired.
-    public fun delete_fee<T>(self: SingleTokenFee<T>, clock: &Clock) {
+    /// Permanently deletes the fee object. Requires lock period to have expired and FeeAdminCap.
+    public fun delete_fee<T>(cap: &FeeAdminCap, self: SingleTokenFee<T>, clock: &Clock) {
+        config::assert_cap_match(cap, object::id(&self));
         assert_lock_expired(&self, clock);
         let SingleTokenFee { id, .. } = self;
         object::delete(id);

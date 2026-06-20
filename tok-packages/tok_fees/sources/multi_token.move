@@ -4,7 +4,7 @@ module tok_fees::multi_token {
     use sui::sui::SUI;
     use sui::clock::{ Clock};
     use std::type_name::{Self, TypeName};
-    use tok_fees::config::{Self, GlobalTreasury};
+    use tok_fees::config::{Self, GlobalTreasury, FeeAdminCap};
 
     /// Fee object that accepts multiple token types as payment.
     /// Owned by the service creator after paying the protocol creation fee.
@@ -56,7 +56,10 @@ module tok_fees::multi_token {
             lock_period: 0
         };
 
-        transfer::public_transfer(fee_obj, ctx.sender());
+        let fee_id = object::id(&fee_obj);
+        config::create_and_transfer_admin_cap(fee_id, ctx.sender(), ctx);
+
+        transfer::public_share_object(fee_obj);
     }
 
     /// Accepts a payment in token T and forwards it to the recipient.
@@ -100,7 +103,8 @@ module tok_fees::multi_token {
 
     /// Adds a new accepted token and its price to the vector.
     /// Aborts if the token type already exists to prevent duplicates.
-    public fun add_price<T>(self: &mut MultiTokenFee, amount: u64, clock: &Clock) {
+    public fun add_price<T>(cap: &FeeAdminCap, self: &mut MultiTokenFee, amount: u64, clock: &Clock) {
+        config::assert_cap_match(cap, object::id(self));
         let type_n = type_name::with_defining_ids<T>();
         let mut i = 0;
         let len = self.prices.length();
@@ -117,7 +121,8 @@ module tok_fees::multi_token {
 
     /// Updates the price for an existing token type. Requires lock period to have expired.
     /// Aborts if the token type is not found in the prices vector.
-    public fun update_price<T>(self: &mut MultiTokenFee, new_amount: u64, clock: &Clock) {
+    public fun update_price<T>(cap: &FeeAdminCap, self: &mut MultiTokenFee, new_amount: u64, clock: &Clock) {
+        config::assert_cap_match(cap, object::id(self));
         self.assert_lock_expired(clock);
         
         let type_n = type_name::with_defining_ids<T>();
@@ -138,14 +143,16 @@ module tok_fees::multi_token {
     }
 
     /// Permanently deletes the fee object. Requires lock period to have expired.
-    public fun delete_fee(self: MultiTokenFee, clock: &Clock) {
+    public fun delete_fee(cap: &FeeAdminCap, self: MultiTokenFee, clock: &Clock) {
+        config::assert_cap_match(cap, object::id(&self));
         self.assert_lock_expired(clock);
         let MultiTokenFee { id, prices: _, .. } = self;
         id.delete();
     }
 
     /// Updates the recipient address for incoming payments. Requires lock period to have expired.
-    public fun update_recipient(self: &mut MultiTokenFee, new_recipient: address, clock: &Clock) {
+    public fun update_recipient(cap: &FeeAdminCap, self: &mut MultiTokenFee, new_recipient: address, clock: &Clock) {
+        config::assert_cap_match(cap, object::id(self));
         self.assert_lock_expired(clock);
         self.recipient = new_recipient;
         self.last_update = clock.timestamp_ms();
@@ -153,12 +160,14 @@ module tok_fees::multi_token {
 
     /// Activates or deactivates the fee object.
     /// Intentionally excluded from the time lock to allow emergency pausing.
-    public fun set_active(self: &mut MultiTokenFee, status: bool) {
+    public fun set_active(cap: &FeeAdminCap, self: &mut MultiTokenFee, status: bool) {
+        config::assert_cap_match(cap, object::id(self));
         self.active = status;
     }
 
     /// Updates the lock period duration. Requires current lock period to have expired.
-    public fun update_lock_period(self: &mut MultiTokenFee, new_period: u64, clock: &Clock) {
+    public fun update_lock_period(cap: &FeeAdminCap, self: &mut MultiTokenFee, new_period: u64, clock: &Clock) {
+        config::assert_cap_match(cap, object::id(self));
         self.assert_lock_expired(clock);
         self.lock_period = new_period;
         self.last_update = clock.timestamp_ms();

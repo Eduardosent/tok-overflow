@@ -3,10 +3,12 @@ import { TokSDK } from "@/sdk";
 import { toast } from "sonner";
 import { calculateTotal, FEES } from "@/constants";
 import { useBalances } from "@/hooks/queries";
+import { useQueryClient } from "@tanstack/react-query";
 
 export function useCreateVesting() {
     const client = useSuiClient();
     const account = useCurrentAccount();
+    const queryClient = useQueryClient();
     const { mist } = useBalances();
     const { mutate: signTransaction } = useSignAndExecuteTransaction();
 
@@ -41,6 +43,8 @@ export function useCreateVesting() {
 
         signTransaction({ transaction: tx }, {
             onSuccess: (result) => {
+                // Invalidate queries to update the created/received lists
+                queryClient.invalidateQueries({ queryKey: ["vestings-created", account?.address] });
                 const explorerUrl = `https://testnet.suivision.xyz/txblock/${result.digest}`;
                 toast.success("Vesting created successfully", {
                     description: "The vesting schedule has been deployed.",

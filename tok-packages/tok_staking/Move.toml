@@ -1,0 +1,15 @@
+[package]
+name = "tok_staking"
+edition = "2024"         # edition = "legacy" to use legacy (pre-2024) Move
+# license = ""           # e.g., "MIT", "GPL", "Apache 2.0"
+# authors = ["..."]      # e.g., ["Joe Smith (joesmith@noemail.com)", "John Snow (johnsnow@noemail.com)"]
+
+[dependencies]
+tok_fees = { local = "../tok_fees" }
+
+[addresses]
+tok_staking = "0x0"
+tok_fees = "0x05029a11fbcfa5d6959a41cce21681a65ecfbb5ee57967e2626272f188c8b653"
+
+# Read more about the package management system options:
+# https://docs.sui.io/guides/developer/sui-101/move-package-management

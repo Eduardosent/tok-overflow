@@ -4,11 +4,11 @@ module tok_fees::config_tests {
     use tok_fees::config::{Self, AdminCap, GlobalTreasury};
 
     const ADMIN: address = @0xAD;
-    const USER_ATREVIDO: address = @0x666;
+    const USER: address = @0x666;
     const NUEVO_ADMIN: address = @0x42;
     const NEW_TREASURY_ADDR: address = @0xFEED;
 
-    /// Verifies init creates a shared GlobalTreasury with correct default fee (10000 mist)
+    /// Verifies init creates a shared GlobalTreasury with correct default fee (10000000 mist)
     /// and treasury address set to deployer. Also confirms AdminCap is transferred to deployer.
     #[test]
     fun test_init_success() {
@@ -20,11 +20,11 @@ module tok_fees::config_tests {
             assert!(test_scenario::has_most_recent_for_sender<AdminCap>(&scenario), 0);
 
             let treasury = test_scenario::take_shared<GlobalTreasury>(&scenario);
-            assert!(config::get_fee(&treasury) == 10000, 1);
+            assert!(config::get_fee(&treasury) == 10000000, 1);
             assert!(config::get_treasury(&treasury) == ADMIN, 2);
 
             let (addr, fee) = config::get_treasury_info(&treasury);
-            assert!(addr == ADMIN && fee == 10000, 3);
+            assert!(addr == ADMIN && fee == 10000000, 3);
 
             test_scenario::return_shared(treasury);
         };
@@ -65,7 +65,7 @@ module tok_fees::config_tests {
         config::init_for_testing(test_scenario::ctx(&mut scenario));
 
         // intruder attempts to take AdminCap they don't own — aborts here
-        test_scenario::next_tx(&mut scenario, USER_ATREVIDO);
+        test_scenario::next_tx(&mut scenario, USER);
         {
             let mut treasury = test_scenario::take_shared<GlobalTreasury>(&scenario);
             let cap = test_scenario::take_from_sender<AdminCap>(&scenario);

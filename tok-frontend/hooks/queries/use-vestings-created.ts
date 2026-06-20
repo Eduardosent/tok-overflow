@@ -10,16 +10,16 @@ export function useVestingsCreated() {
   const queryClient = useQueryClient();
   const sdk = new TokSDK();
 
-  const recipientAddress = account?.address;
+  const senderAddress = account?.address;
 
   return useQuery({
-    queryKey: ["vestings-created", recipientAddress],
+    queryKey: ["vestings-created", senderAddress],
     queryFn: async (): Promise<VestingCreatedEvent[]> => {
-      if (!recipientAddress) {
+      if (!senderAddress) {
         return [];
       }
 
-      const events = await sdk.vesting.getVestingsByRecipient(client, recipientAddress);
+      const events = await sdk.vesting.getVestingsBySender(client, senderAddress);
 
       for (const event of events) {
         const coinType = event.coin_type.name;
@@ -35,6 +35,6 @@ export function useVestingsCreated() {
 
       return events;
     },
-    enabled: !!recipientAddress,
+    enabled: !!senderAddress,
   });
 }

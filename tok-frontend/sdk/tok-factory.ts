@@ -45,7 +45,7 @@ export class TokFactory {
 
             [addresses]
             ${nameLower} = "0x0"
-            tok_issuer = "0x599e4193987d894aa2444cf7df0500c01cba23f738a614673a65d012066ec4f0"
+            tok_issuer = "0x88288ba5d35289a4410ec0b93c0aae251724b5eab8df81743c44143c72ccbdd4"
             `,
             [`sources/${nameLower}.move`]: `module ${nameLower}::${nameLower} {
                 use tok_issuer::with_otw;
@@ -127,13 +127,13 @@ export class TokFactory {
     //     // const [paymentCoin] = payTx.splitCoins(payTx.gas, [payTx.pure.u64(100_000_000)]);
 
     //     // payTx.moveCall({
-    //     //     target: `0x599e4193987d894aa2444cf7df0500c01cba23f738a614673a65d012066ec4f0::with_otw::pay_token`,
+    //     //     target: `0x88288ba5d35289a4410ec0b93c0aae251724b5eab8df81743c44143c72ccbdd4::with_otw::pay_token`,
     //     //     typeArguments: [
     //     //         typeArgument,
     //     //         "0x2::sui::SUI"
     //     //     ],
     //     //     arguments: [
-    //     //         payTx.object("0xc7ad3d5ff0bdf2f9f29271716a4a367d6010698a9d98099ac0ffa5231730846e"),
+    //     //         payTx.object("0xa3e9aefb95094464973a54ff47d3a20a383cf6526332800a737928c841ca615c"),
     //     //         paymentCoin, 
     //     //         payTx.object("0xc"),
     //     //         payTx.object(currencyId),
@@ -178,10 +178,10 @@ export class TokFactory {
     const [paymentCoin] = payTx.splitCoins(payTx.gas, [payTx.pure.u64(100_000_000)]);
 
     payTx.moveCall({
-        target: `0x599e4193987d894aa2444cf7df0500c01cba23f738a614673a65d012066ec4f0::with_otw::pay_token`,
+        target: `0x88288ba5d35289a4410ec0b93c0aae251724b5eab8df81743c44143c72ccbdd4::with_otw::pay_token`,
         typeArguments: [typeArgument, "0x2::sui::SUI"],
         arguments: [
-            payTx.object("0xc7ad3d5ff0bdf2f9f29271716a4a367d6010698a9d98099ac0ffa5231730846e"), // El ID del objeto de pago (asegúrate que sea el correcto)
+            payTx.object("0xa3e9aefb95094464973a54ff47d3a20a383cf6526332800a737928c841ca615c"),
             paymentCoin, 
             payTx.object("0xc"),
             payTx.object(currencyId),

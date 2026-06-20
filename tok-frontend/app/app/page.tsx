@@ -48,6 +48,13 @@ const modules = [
       "Create and deploy fungible tokens with configurable supply, metadata and permissions.",
   },
   {
+    href: "/app/fees",
+    icon: "/icons/fee1.png",
+    title: "TOK Fees",
+    description:
+      "Create and manage your own dynamic fee structure to charge for your services.",
+  },
+  {
     href: "/app/staking",
     icon: "/icons/staking.png",
     title: "TOK Staking",
@@ -94,7 +101,7 @@ export default function AppPage() {
       </div>
 
       {/* Content */}
-      <section className="relative z-10 flex h-full flex-col items-center justify-between px-5 py-6 sm:px-8 sm:py-8">
+      <section className="relative z-10 flex h-full flex-col items-center px-5 py-6 sm:px-8 sm:py-8">
         {/* Top */}
         <div className="flex flex-col items-center">
           {/* Brand */}
@@ -116,8 +123,8 @@ export default function AppPage() {
           </div>
         </div>
 
-        {/* Center cards */}
-        <div className="flex w-full max-w-[900px] flex-col gap-3 sm:flex-row sm:gap-4">
+        {/* Center cards - 2x2 grid */}
+        <div className="grid w-full max-w-[940px] grid-cols-1 gap-4 sm:grid-cols-2 my-4 sm:my-6">
           {modules.map((mod) => (
             <Link
               key={mod.href}
@@ -125,7 +132,6 @@ export default function AppPage() {
               className="
                 group
                 relative
-                flex-1
                 overflow-hidden
                 rounded-[28px]
                 border
@@ -169,12 +175,12 @@ export default function AppPage() {
           ))}
         </div>
 
-        {/* Bottom */}
-        <div className="w-full max-w-[900px] text-center">
-          <p className="mb-4 text-[11px] sm:text-sm font-medium uppercase tracking-[0.18em] text-text-secondary">
+        {/* Bottom - Reduced margin */}
+        <div className="w-full max-w-[940px] text-center">
+          <p className="mb-2 text-[10px] sm:text-xs font-medium uppercase tracking-[0.18em] text-text-secondary">
             Future Modules
           </p>
-          <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
+          <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2">
             {futureModules.map((item) => (
               <div
                 key={item}
@@ -183,12 +189,12 @@ export default function AppPage() {
                   border
                   border-gray-200
                   bg-gray-50/80
-                  px-3
-                  py-1.5
-                  sm:px-4
-                  sm:py-2
-                  text-xs
-                  sm:text-sm
+                  px-2.5
+                  py-1
+                  sm:px-3
+                  sm:py-1.5
+                  text-[10px]
+                  sm:text-xs
                   text-gray-500
                 "
               >
