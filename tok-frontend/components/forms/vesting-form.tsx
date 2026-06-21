@@ -88,7 +88,7 @@ export function VestingForm({ walletBalances }: VestingFormProps) {
     reset,
     formState: { errors, isSubmitting },
   } = useForm<VestingValues>({
-    resolver: zodResolver(currentSchema),
+    resolver: zodResolver(currentSchema) as any,
     defaultValues: {
       cliffTime: 0,
       releasePeriod: 1000,

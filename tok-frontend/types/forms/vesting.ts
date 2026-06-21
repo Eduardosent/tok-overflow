@@ -11,19 +11,19 @@ export const createVestingSchema = (config: VestingValidationConfig) => {
   return z
     .object({
       depositAmount: z
-        .number({ invalid_type_error: "Deposit amount is required" })
+        .number()
         .positive("Deposit amount must be greater than 0")
         .max(maxHumanBalance, `Insufficient balance. Maximum available is ${maxHumanBalance}`),
       cliffTime: z
         .preprocess(
           (val) => (val === "" || val === undefined || isNaN(Number(val)) ? 0 : Number(val)),
-          z.number({ invalid_type_error: "Cliff duration must be a number" }).min(0, "Cliff duration cannot be negative")
+          z.number().min(0, "Cliff duration cannot be negative")
         ),
       releaseAmount: z
-        .number({ invalid_type_error: "Release amount is required" })
+        .number()
         .positive("Release amount must be greater than 0"),
       releasePeriod: z
-        .number({ invalid_type_error: "Release period is required" })
+        .number()
         .positive("Release period must be greater than 0"),
       recipient: z
         .string()
@@ -36,7 +36,13 @@ export const createVestingSchema = (config: VestingValidationConfig) => {
     }, {
       message: "Release amount per period cannot be greater than the total deposited amount",
       path: ["releaseAmount"],
-    });
+    }) as any;
 };
 
-export type VestingValues = z.infer<ReturnType<typeof createVestingSchema>>;
+export type VestingValues = {
+  depositAmount: number;
+  cliffTime: number;
+  releaseAmount: number;
+  releasePeriod: number;
+  recipient: string;
+};
