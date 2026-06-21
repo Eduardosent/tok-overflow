@@ -34,10 +34,10 @@ const formatMsToReadable = (ms: number | undefined) => {
   if (seconds < 60) return `(${Number(seconds.toFixed(2))}s)`;
   
   const minutes = seconds / 60;
-  if (minutes < 60) return `(${Number(seconds.toFixed(2))}m)`;
+  if (minutes < 60) return `(${Number(minutes.toFixed(2))}m)`;
   
   const hours = minutes / 60;
-  if (hours < 24) return `(${Number(seconds.toFixed(2))}h)`;
+  if (hours < 24) return `(${Number(hours.toFixed(2))}h)`;
   
   const days = hours / 24;
   return `(${Number(days.toFixed(2))}d)`;
