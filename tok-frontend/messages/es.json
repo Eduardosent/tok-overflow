@@ -1,0 +1,151 @@
+{
+  "Landing": {
+    "Navbar": {
+      "navPilares": "Pilares",
+      "navVision": "Visión",
+      "navFuncionalidades": "Funcionalidades",
+      "navToken": "Token",
+      "btnComenzar": "Comenzar"
+    },
+    "Hero": {
+      "titlePart1": "Infraestructura de tokenización",
+      "titlePart2": "abierta para todos",
+      "description": "TOK es el ecosistema que abre las puertas para que cualquiera pueda acceder a la blockchain y la tokenización con todos sus beneficios. Ofrecemos las soluciones de la tokenización a cualquier individuo, con o sin experiencia previa, diseñadas para ser utilizadas a gran escala y de manera accesible para todos.",
+      "btnProbar": "Probar Ahora",
+      "btnCaracteristicas": "Ver Características"
+    },
+    "Pillars": {
+      "sectionTitle": "Los 3 principales pilares de TOK",
+      "pillar1Title": "Acceso a la Tokenización y Web3",
+      "pillar1Desc": "Puerta de entrada para interactuar con la blockchain. Incluye creación de tokens, vesting, lending, entre otros.",
+      "pillar2Title": "Infraestructura Regulada (RWA)",
+      "pillar2Desc": "TOK como emisor regulado de activos digitales en El Salvador y otras jurisdicciones globales. Transformación de activos reales (RWA) en títulos digitales con respaldo jurídico.",
+      "pillar3Title": "Mercados y Bolsa de Valores Tokenizada",
+      "pillar3Desc": "Entorno de negociación. Integra mercados secundarios, posibles DEX, CEX y bolsa de valores tokenizada para la compra, venta y financiamiento de activos."
+    },
+    "Vision": {
+      "sectionTitle": "Visión Estratégica",
+      "paragraph1": "TOK inicia en El Salvador como un punto estratégico para construir la próxima generación de infraestructura financiera digital. Aprovechando uno de los marcos más avanzados para activos digitales y la posibilidad de operar como emisor regulado, el objetivo es crear una base sólida capaz de conectar tecnología, confianza y acceso global.",
+      "paragraph2": "La visión va más allá de una sola jurisdicción. TOK está diseñado para escalar hacia mercados con regulaciones favorables, impulsando un ecosistema donde crear, emitir e intercambiar activos digitales sea tan accesible y natural como utilizar cualquier servicio financiero actual.",
+      "paragraph3": "Desde activos del mundo real hasta nuevas formas de inversión digital, TOK busca transformar la tokenización en una herramienta cotidiana, eliminando fricciones y acercando nuevas oportunidades a personas, empresas e inversores a escala global."
+    },
+    "Features": {
+      "sectionTitle": "Funcionalidades de TOK",
+      "sectionSubtitle": "Un ecosistema completo e integrado para crear, gestionar, invertir e intercambiar activos digitales y del mundo real.",
+      "items": {
+        "tokenCreation": {
+          "title": "Token Creation",
+          "desc": "Crea y emite tokens fácilmente."
+        },
+        "staking": {
+          "title": "Staking",
+          "desc": "Agrega staking a cualquier token."
+        },
+        "vesting": {
+          "title": "Vesting",
+          "desc": "Libera tokens automáticamente."
+        },
+        "nftCollections": {
+          "title": "NFT Collections",
+          "desc": "Crea colecciones NFT."
+        },
+        "copyright": {
+          "title": "Copyright",
+          "desc": "Seguimiento legal de creaciones."
+        },
+        "betting": {
+          "title": "Betting",
+          "desc": "Apuestas para deportes y juegos."
+        },
+        "tokLearn": {
+          "title": "TOK Learn",
+          "desc": "Aprende blockchain y gana."
+        },
+        "tokDevSdk": {
+          "title": "TOK Dev & SDK",
+          "desc": "SDK para desarrolladores."
+        },
+        "tokLaunchpad": {
+          "title": "TOK Launchpad",
+          "desc": "Launchpad descentralizado."
+        },
+        "regulatedLaunchpad": {
+          "title": "Regulated Launchpad",
+          "desc": "Emisiones reguladas."
+        },
+        "dex": {
+          "title": "DEX",
+          "desc": "Exchange descentralizado."
+        },
+        "cex": {
+          "title": "CEX",
+          "desc": "Exchange centralizado."
+        },
+        "tokenizedExchange": {
+          "title": "Tokenized Exchange",
+          "desc": "Mercado tokenizado."
+        },
+        "lending": {
+          "title": "Lending",
+          "desc": "Liquidez con colateral."
+        },
+        "renting": {
+          "title": "Renting",
+          "desc": "Modelos tokenizados."
+        },
+        "realState": {
+          "title": "Real State",
+          "desc": "Inversión inmobiliaria."
+        },
+        "marketplace": {
+          "title": "Marketplace",
+          "desc": "Compra y venta de activos."
+        },
+        "tokSecurities": {
+          "title": "TOK Securities",
+          "desc": "Repartición de ganancias."
+        },
+        "moreInFuture": {
+          "title": "More in the Future",
+          "desc": "Más innovación por venir."
+        }
+      }
+    },
+    "TokenSection": {
+      "sectionTitle": "Token TOK",
+      "mainDescription": "El token sirve para financiar el desarrollo del ecosistema, sobre todo en las funcionalidades más complejas de securities y crear una bolsa de valores tokenizada. Financiar TOK es adquirir una participación directa para ser poseedor del proyecto.",
+      "utility": {
+        "title": "Utility Token",
+        "desc": "Se emitirá inicialmente como Utility porque no se cuenta con el dinero para registrarlo como Security desde el primer día.",
+        "label": "Función:",
+        "value": "Servirá para pagar menos comisiones (fees) al usar todos los servicios de la plataforma."
+      },
+      "security": {
+        "title": "Transición a Security",
+        "desc": "La meta es cambiar el token en el futuro de utility a security mediante un swap. Aunque al principio sea una promesa, el objetivo es que comprar el token sea el equivalente a haber comprado una parte de la empresa:",
+        "label": "Función:",
+        "value": "Las participaciones otorgarán el derecho a recibir la repartición de las ganancias de todo el ecosistema a los tenedores del token."
+      },
+      "card": {
+        "title": "Estructura del Token",
+        "supplyLabel": "Suministro Total",
+        "supplyValue": "10B",
+        "salesLabel": "Esperada Venta",
+        "salesValue": "20%",
+        "launchLabel": "Lanzamiento Esperado",
+        "launchValue": "Q3",
+        "launchDetail": "en Launchpad DEX",
+        "footerText": "más detalles pronto"
+      },
+      "legal": {
+        "label": "Claridad del Proyecto:",
+        "text": "Este modelo define el objetivo técnico y de negocio hacia el cual se dirige la plataforma. Al ser un desarrollo de alta complejidad que depende directamente de este financiamiento para programar la bolsa tokenizada y los securities, se presenta como nuestra meta e intención real de ejecución; esto no constituye una oferta pública de valores ni una promesa de rendimientos garantizados."
+      }
+    },
+    "Footer": {
+      "description": "Ecosistema financiero descentralizado enfocado en la tokenización de activos de alta complejidad.",
+      "copyright": "Todos los derechos reservados.",
+      "socialsTitle": "Nuestras Redes Sociales"
+    }
+  }
+}

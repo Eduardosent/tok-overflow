@@ -21,117 +21,33 @@ import {
   Sparkles,
 } from "lucide-react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
-const features = [
-  {
-    title: "Token Creation",
-    description: "Crea y emite tokens fácilmente.",
-    icon: Coins,
-  },
-  {
-    title: "Staking",
-    description: "Agrega staking a cualquier token.",
-    icon: Lock,
-  },
-  {
-    title: "Vesting",
-    description: "Libera tokens automáticamente.",
-    icon: ShieldCheck,
-  },
-  {
-    title: "NFT Collections",
-    description: "Crea colecciones NFT.",
-    icon: ImageIcon,
-  },
+interface FeatureItem {
+  key: string;
+  icon: any;
+}
 
-  {
-    title: "Copyright",
-    description: "Seguimiento legal de creaciones.",
-    icon: Copyright,
-  },
-  {
-    title: "Betting",
-    description: "Apuestas para deportes y juegos.",
-    icon: Trophy,
-  },
-  {
-    title: "TOK Learn",
-    description: "Aprende blockchain y gana.",
-    icon: GraduationCap,
-  },
-
-  {
-    title: "TOK Dev & SDK",
-    description: "SDK para desarrolladores.",
-    icon: Code2,
-  },
-  {
-    title: "TOK Launchpad",
-    description: "Launchpad descentralizado.",
-    icon: Rocket,
-  },
-  {
-    title: "Regulated Launchpad",
-    description: "Emisiones reguladas.",
-    icon: ShieldCheck,
-  },
-  {
-    title: "DEX",
-    description: "Exchange descentralizado.",
-    icon: Repeat,
-  },
-
-  {
-    title: "CEX",
-    description: "Exchange centralizado.",
-    icon: Landmark,
-  },
-  {
-    title: "Tokenized Exchange",
-    description: "Mercado tokenizado.",
-    icon: ChartCandlestick,
-  },
-  {
-    title: "Lending",
-    description: "Liquidez con colateral.",
-    icon: HandCoins,
-  },
-
-  {
-    title: "Renting",
-    description: "Modelos tokenizados.",
-    icon: KeyRound,
-  },
-  {
-    title: "Real State",
-    description: "Inversión inmobiliaria.",
-    icon: Building2,
-  },
-  {
-    title: "Marketplace",
-    description: "Compra y venta de activos.",
-    icon: Store,
-  },
-  {
-    title: "TOK Securities",
-    description: "Repartición de ganancias.",
-    icon: Gem,
-  },
-
-  {
-    title: "More in the Future",
-    description: "Más innovación por venir.",
-    icon: Sparkles,
-  },
-];
-
-const rows = [
-  features.slice(0, 4),
-  features.slice(4, 7),
-  features.slice(7, 11),
-  features.slice(11, 14),
-  features.slice(14, 18),
-  features.slice(18, 19),
+const featureConfig: FeatureItem[] = [
+  { key: "tokenCreation", icon: Coins },
+  { key: "staking", icon: Lock },
+  { key: "vesting", icon: ShieldCheck },
+  { key: "nftCollections", icon: ImageIcon },
+  { key: "copyright", icon: Copyright },
+  { key: "betting", icon: Trophy },
+  { key: "tokLearn", icon: GraduationCap },
+  { key: "tokDevSdk", icon: Code2 },
+  { key: "tokLaunchpad", icon: Rocket },
+  { key: "regulatedLaunchpad", icon: ShieldCheck },
+  { key: "dex", icon: Repeat },
+  { key: "cex", icon: Landmark },
+  { key: "tokenizedExchange", icon: ChartCandlestick },
+  { key: "lending", icon: HandCoins },
+  { key: "renting", icon: KeyRound },
+  { key: "realState", icon: Building2 },
+  { key: "marketplace", icon: Store },
+  { key: "tokSecurities", icon: Gem },
+  { key: "moreInFuture", icon: Sparkles },
 ];
 
 function HexCard({
@@ -202,6 +118,26 @@ function HexCard({
 }
 
 export const Features = () => {
+  const t = useTranslations("Landing.Features");
+
+  // Map configuration array to translated elements
+  const translatedFeatures = featureConfig.map((item) => ({
+    id: item.key,
+    title: t(`items.${item.key}.title`),
+    description: t(`items.${item.key}.desc`),
+    icon: item.icon,
+  }));
+
+  // Chunk items into rows for desktop honeycomb layout
+  const rows = [
+    translatedFeatures.slice(0, 4),
+    translatedFeatures.slice(4, 7),
+    translatedFeatures.slice(7, 11),
+    translatedFeatures.slice(11, 14),
+    translatedFeatures.slice(14, 18),
+    translatedFeatures.slice(18, 19),
+  ];
+
   return (
     <section id="features" className="relative py-12 overflow-hidden bg-white">
       {/* Background blur */}
@@ -209,119 +145,80 @@ export const Features = () => {
       <div className="absolute bottom-0 right-0 w-[420px] h-[420px] bg-secondary/10 rounded-full blur-[120px]" />
       
       {/* TOK Logos Background */}
-<div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
+        {/* Top Left */}
+        <Image
+          src="/logo1.png"
+          alt=""
+          width={90}
+          height={90}
+          className="absolute top-[8%] left-[4%] rotate-[18deg] opacity-[0.35]"
+        />
 
-  {/* Top Left */}
-  <Image
-    src="/logo1.png"
-    alt=""
-    width={90}
-    height={90}
-    className="
-      absolute
-      top-[8%]
-      left-[4%]
-      rotate-[18deg]
-      opacity-[0.35]
-    "
-  />
+        {/* Top Right */}
+        <Image
+          src="/logo2.png"
+          alt=""
+          width={95}
+          height={95}
+          className="absolute top-[10%] right-[6%] -rotate-[22deg] opacity-[0.45]"
+        />
 
-  {/* Top Right */}
-  <Image
-    src="/logo2.png"
-    alt=""
-    width={95}
-    height={95}
-    className="
-      absolute
-      top-[10%]
-      right-[6%]
-      -rotate-[22deg]
-      opacity-[0.45]
-    "
-  />
+        {/* Middle Left */}
+        <Image
+          src="/logo2.png"
+          alt=""
+          width={80}
+          height={80}
+          className="absolute top-[38%] left-[2%] rotate-[42deg] opacity-[0.5]"
+        />
 
-  {/* Middle Left */}
-  <Image
-    src="/logo2.png"
-    alt=""
-    width={80}
-    height={80}
-    className="
-      absolute
-      top-[38%]
-      left-[2%]
-      rotate-[42deg]
-      opacity-[0.5]
-    "
-  />
+        {/* Center Right */}
+        <Image
+          src="/logo1.png"
+          alt=""
+          width={100}
+          height={100}
+          className="absolute top-[48%] right-[3%] -rotate-[16deg] opacity-[0.2]"
+        />
 
-  {/* Center Right */}
-  <Image
-    src="/logo1.png"
-    alt=""
-    width={100}
-    height={100}
-    className="
-      absolute
-      top-[48%]
-      right-[3%]
-      -rotate-[16deg]
-      opacity-[0.2]
-    "
-  />
+        {/* Bottom Left */}
+        <Image
+          src="/logo1.png"
+          alt=""
+          width={90}
+          height={90}
+          className="absolute bottom-[12%] left-[14%] rotate-[34deg] opacity-[0.4]"
+        />
 
-  {/* Bottom Left */}
-  <Image
-    src="/logo1.png"
-    alt=""
-    width={90}
-    height={90}
-    className="
-      absolute
-      bottom-[12%]
-      left-[14%]
-      rotate-[34deg]
-      opacity-[0.4]
-    "
-  />
-
-  {/* Bottom Right */}
-  <Image
-    src="/logo2.png"
-    alt=""
-    width={85}
-    height={85}
-    className="
-      absolute
-      bottom-[8%]
-      right-[16%]
-      -rotate-[38deg]
-      opacity-[0.3]
-    "
-  />
-</div>
+        {/* Bottom Right */}
+        <Image
+          src="/logo2.png"
+          alt=""
+          width={85}
+          height={85}
+          className="absolute bottom-[8%] right-[16%] -rotate-[38deg] opacity-[0.3]"
+        />
+      </div>
 
       <div className="relative z-10 max-w-[1700px] mx-auto px-4 sm:px-6">
         {/* Heading */}
         <div className="text-center mb-8 lg:mb-4">
           <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-foreground tracking-tight">
-            Funcionalidades de{" "}
+            {t("sectionTitle").split(" TOK")[0]}{" "}
             <span className="text-primary">TOK</span>
           </h2>
 
           <p className="mt-5 text-text-secondary text-lg sm:text-xl max-w-3xl mx-auto leading-relaxed">
-            Un ecosistema completo e integrado para crear,
-            gestionar, invertir e intercambiar activos
-            digitales y del mundo real.
+            {t("sectionSubtitle")}
           </p>
         </div>
 
         {/* MOBILE / TABLET */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 justify-items-center lg:hidden">
-          {features.map((item) => (
+          {translatedFeatures.map((item) => (
             <HexCard
-              key={item.title}
+              key={item.id}
               title={item.title}
               description={item.description}
               icon={item.icon}
@@ -341,7 +238,7 @@ export const Features = () => {
             >
               {row.map((item) => (
                 <HexCard
-                  key={item.title}
+                  key={item.id}
                   title={item.title}
                   description={item.description}
                   icon={item.icon}

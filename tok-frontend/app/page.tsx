@@ -1,4 +1,4 @@
-import { Features, Hero, Navbar, Pillars, Vision } from "@/components/landing";
+import { Features, Footer, Hero, Navbar, Pillars, TokenSection, Vision } from "@/components/landing";
 import Image from "next/image";
 
 export default function Home() {
@@ -9,6 +9,8 @@ export default function Home() {
       <Pillars />
       <Vision />
       <Features />
+      <TokenSection />
+      <Footer />
     </div>
   );
 }

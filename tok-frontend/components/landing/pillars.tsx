@@ -1,5 +1,7 @@
+"use client";
 import React from 'react';
 import Image from 'next/image';
+import { useTranslations } from "next-intl";
 
 interface PillarProps {
   title: string;
@@ -27,26 +29,28 @@ const PillarCard: React.FC<PillarProps> = ({ title, description, image }) => (
 );
 
 export const Pillars: React.FC = () => {
+  const t = useTranslations("Landing.Pillars");
+
   const pillars: PillarProps[] = [
     {
-      title: "Acceso a la Tokenización y Web3",
-      description: "Puerta de entrada para interactuar con la blockchain. Incluye creación de tokens, vesting, lending, entre otros.",
+      title: t("pillar1Title"),
+      description: t("pillar1Desc"),
       image: "/landing/pilar1.png"
     },
     {
-      title: "Infraestructura Regulada (RWA)",
-      description: "TOK como emisor regulado de activos digitales en El Salvador y otras jurisdicciones globales. Transformación de activos reales (RWA) en títulos digitales con respaldo jurídico.",
+      title: t("pillar2Title"),
+      description: t("pillar2Desc"),
       image: "/landing/pilar2.png"
     },
     {
-      title: "Mercados y Bolsa de Valores Tokenizada",
-      description: "Entorno de negociación. Integra mercados secundarios, posibles DEX, CEX y bolsa de valores tokenizada para la compra, venta y financiamiento de activos.",
+      title: t("pillar3Title"),
+      description: t("pillar3Desc"),
       image: "/landing/pilar3.png"
     }
   ];
 
   return (
-    <section className="bg-white py-20 relative overflow-hidden">
+    <section id="pillars" className="bg-white py-20 relative overflow-hidden">
       {/* 4 Círculos decorativos grandes y distribuidos */}
       <div className="absolute -top-20 -left-20 w-96 h-96 bg-primary opacity-20 rounded-full blur-3xl"></div>
       <div className="absolute top-40 right-0 w-96 h-96 bg-secondary opacity-20 rounded-full blur-3xl"></div>
@@ -55,7 +59,7 @@ export const Pillars: React.FC = () => {
 
       <div className="max-w-7xl mx-auto px-4 relative z-10">
         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-primary font-bold mb-12 text-center text-gray-900">
-          Los 3 principales pilares de TOK
+          {t("sectionTitle")}
         </h2>
         <div className="flex flex-col md:flex-row items-end gap-6">
           {pillars.map((pillar, index) => (

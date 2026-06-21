@@ -1,0 +1,151 @@
+{
+  "Landing": {
+    "Navbar": {
+      "navPilares": "Pillars",
+      "navVision": "Vision",
+      "navFuncionalidades": "Features",
+      "navToken": "Token",
+      "btnComenzar": "Get Started"
+    },
+    "Hero": {
+      "titlePart1": "Tokenization infrastructure",
+      "titlePart2": "open to everyone",
+      "description": "TOK is the ecosystem that opens the doors for anyone to access blockchain and tokenization with all its benefits. We offer tokenization solutions to any individual, with or without prior experience, designed to be used at scale and accessible to everyone.",
+      "btnProbar": "Try Now",
+      "btnCaracteristicas": "View Features"
+    },
+    "Pillars": {
+      "sectionTitle": "The 3 Main Pillars of TOK",
+      "pillar1Title": "Access to Tokenization and Web3",
+      "pillar1Desc": "Gateway to interact with the blockchain. Includes token creation, vesting, lending, among others.",
+      "pillar2Title": "Regulated Infrastructure (RWA)",
+      "pillar2Desc": "TOK as a regulated issuer of digital assets in El Salvador and other global jurisdictions. Transformation of real-world assets (RWA) into digital titles with legal backing.",
+      "pillar3Title": "Markets and Tokenized Stock Exchange",
+      "pillar3Desc": "Trading environment. Integrates secondary markets, potential DEXs, CEXs, and a tokenized stock exchange for buying, selling, and financing assets."
+    },
+    "Vision": {
+      "sectionTitle": "Strategic Vision",
+      "paragraph1": "TOK starts in El Salvador as a strategic point to build the next generation of digital financial infrastructure. Leveraging one of the most advanced frameworks for digital assets and the possibility of operating as a regulated issuer, the goal is to create a solid foundation capable of connecting technology, trust, and global access.",
+      "paragraph2": "The vision goes beyond a single jurisdiction. TOK is designed to scale towards markets with favorable regulations, driving an ecosystem where creating, issuing, and exchanging digital assets is as accessible and natural as using any current financial service.",
+      "paragraph3": "From real-world assets to new forms of digital investment, TOK seeks to transform tokenization into an everyday tool, eliminating friction and bringing new opportunities to individuals, companies, and investors on a global scale."
+    },
+    "Features": {
+      "sectionTitle": "TOK Features",
+      "sectionSubtitle": "A complete and integrated ecosystem to create, manage, invest, and exchange digital and real-world assets.",
+      "items": {
+        "tokenCreation": {
+          "title": "Token Creation",
+          "desc": "Easily create and issue tokens."
+        },
+        "staking": {
+          "title": "Staking",
+          "desc": "Add staking to any token."
+        },
+        "vesting": {
+          "title": "Vesting",
+          "desc": "Release tokens automatically."
+        },
+        "nftCollections": {
+          "title": "NFT Collections",
+          "desc": "Create NFT collections."
+        },
+        "copyright": {
+          "title": "Copyright",
+          "desc": "Legal tracking of creations."
+        },
+        "betting": {
+          "title": "Betting",
+          "desc": "Betting for sports and games."
+        },
+        "tokLearn": {
+          "title": "TOK Learn",
+          "desc": "Learn blockchain and earn."
+        },
+        "tokDevSdk": {
+          "title": "TOK Dev & SDK",
+          "desc": "SDK for developers."
+        },
+        "tokLaunchpad": {
+          "title": "TOK Launchpad",
+          "desc": "Decentralized launchpad."
+        },
+        "regulatedLaunchpad": {
+          "title": "Regulated Launchpad",
+          "desc": "Regulated issuances."
+        },
+        "dex": {
+          "title": "DEX",
+          "desc": "Decentralized exchange."
+        },
+        "cex": {
+          "title": "CEX",
+          "desc": "Centralized exchange."
+        },
+        "tokenizedExchange": {
+          "title": "Tokenized Exchange",
+          "desc": "Tokenized market."
+        },
+        "lending": {
+          "title": "Lending",
+          "desc": "Liquidity with collateral."
+        },
+        "renting": {
+          "title": "Renting",
+          "desc": "Tokenized models."
+        },
+        "realState": {
+          "title": "Real Estate",
+          "desc": "Real estate investment."
+        },
+        "marketplace": {
+          "title": "Marketplace",
+          "desc": "Buying and selling of assets."
+        },
+        "tokSecurities": {
+          "title": "TOK Securities",
+          "desc": "Profit sharing."
+        },
+        "moreInFuture": {
+          "title": "More in the Future",
+          "desc": "More innovation to come."
+        }
+      }
+    },
+    "TokenSection": {
+      "sectionTitle": "TOK Token",
+      "mainDescription": "The token serves to finance the development of the ecosystem, especially the more complex security features, and to create a tokenized stock exchange. Financing TOK means acquiring a direct stake to become an owner of the project.",
+      "utility": {
+        "title": "Utility Token",
+        "desc": "It will initially be issued as a Utility token because funds are not available to register it as a Security from day one.",
+        "label": "Function:",
+        "value": "It will serve to pay lower fees when using all platform services."
+      },
+      "security": {
+        "title": "Transition to Security",
+        "desc": "The goal is to change the token from utility to security in the future through a swap. Although it is a promise at first, the objective is that buying the token is the equivalent of having bought a part of the company:",
+        "label": "Function:",
+        "value": "The stakes will grant holders the right to receive a share of the profits from the entire ecosystem."
+      },
+      "card": {
+        "title": "Token Structure",
+        "supplyLabel": "Total Supply",
+        "supplyValue": "10B",
+        "salesLabel": "Expected Sale",
+        "salesValue": "20%",
+        "launchLabel": "Expected Launch",
+        "launchValue": "Q3",
+        "launchDetail": "on Launchpad DEX",
+        "footerText": "more details soon"
+      },
+      "legal": {
+        "label": "Project Clarity:",
+        "text": "This model defines the technical and business objective towards which the platform is directed. Since this is a highly complex development that depends directly on this financing to program the tokenized exchange and securities, it is presented as our true goal and execution intent; this does not constitute a public offering of securities or a promise of guaranteed returns."
+      }
+    },
+    "Footer": {
+      "description": "Decentralized financial ecosystem focused on the tokenization of highly complex assets.",
+      "copyright": "All rights reserved.",
+      "socialsTitle": "Our Social Networks"
+    }
+  }
+}

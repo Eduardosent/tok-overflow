@@ -1,100 +1,11 @@
 "use client";
-import Image from "next/image";
-import Link from "next/link";
-import { scrollToSection } from "@/utils";
-import { useTranslations } from "next-intl";
+
 import { useState, useRef, useEffect } from 'react';
 import { getCookie, setCookie } from 'cookies-next';
 import { useRouter } from 'next/navigation';
 import { ChevronDown, Check } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { LANGUAGES, LanguageCode } from '@/constants/languages';
-
-export function Navbar() {
-  const t = useTranslations("Landing.Navbar");
-  const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
-  
-  /* Reference to track the exact Y position where the user started scrolling up */
-  const startTargetY = useRef(0);
-
-  useEffect(() => {
-    const controlNavbar = () => {
-      const currentScrollY = window.scrollY;
-
-      /* Force visibility if user is at the very top */
-      if (currentScrollY < 150) {
-        setIsVisible(true);
-      } 
-      /* Behavior when scrolling down */
-      else if (currentScrollY > lastScrollY) {
-        setIsVisible(false);
-        /* Reset the pivot point while going down so it's ready when they turn back up */
-        startTargetY.current = currentScrollY;
-      } 
-      /* Behavior when scrolling up */
-      else if (currentScrollY < lastScrollY) {
-        /* Measure the total accumulated distance from the pivot point */
-        const totalUpwardScroll = startTargetY.current - currentScrollY;
-
-        if (totalUpwardScroll >= 150) {
-          setIsVisible(true);
-        }
-      }
-
-      setLastScrollY(currentScrollY);
-    };
-
-    window.addEventListener("scroll", controlNavbar);
-    return () => window.removeEventListener("scroll", controlNavbar);
-  }, [lastScrollY]);
-
-  return (
-    <nav className={`w-full py-4 px-8 flex items-center justify-between bg-gradient-to-b from-primary/50 to-primary/10 fixed top-0 left-0 z-50 transition-transform duration-300 ${isVisible ? "translate-y-0" : "-translate-y-full"}`}>
-      <div className="flex items-center">
-        <Link href="/">
-          <Image src="/logo1.png" alt="TOK Logo" width={40} height={40} priority />
-        </Link>
-      </div>
-
-      <div className="hidden md:flex gap-6 text-sm font-medium text-primary">
-        <button 
-          onClick={(e) => scrollToSection(e, "pillars")} 
-          className="hover:scale-105 transition-transform duration-200 ease-out"
-        >
-          {t("navPilares")}
-        </button>
-        <button 
-          onClick={(e) => scrollToSection(e, "vision")} 
-          className="hover:scale-105 transition-transform duration-200 ease-out"
-        >
-          {t("navVision")}
-        </button>
-        <button 
-          onClick={(e) => scrollToSection(e, "features")} 
-          className="hover:scale-105 transition-transform duration-200 ease-out"
-        >
-          {t("navFuncionalidades")}
-        </button>
-        <button 
-          onClick={(e) => scrollToSection(e, "token")} 
-          className="hover:scale-105 transition-transform duration-200 ease-out"
-        >
-          {t("navToken")}
-        </button>
-      </div>
-
-      {/* Language Selector integrated to the left of the main CTA button */}
-      <div className="flex items-center gap-4">
-        <LanguageSelector />
-        
-        <Link href="/app" className="text-primary border border-primary bg-white hover:bg-primary hover:text-white px-4 py-2 rounded-3xl transition-colors text-sm font-medium">
-          {t("btnComenzar")}
-        </Link>
-      </div>
-    </nav>
-  );
-}
 
 export function LanguageSelector() {
   const router = useRouter();
@@ -192,4 +103,3 @@ export function LanguageSelector() {
     </div>
   );
 }
-
