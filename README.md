@@ -1,56 +1,56 @@
 # TOK
 
-TOK es una infraestructura en la blockchain de Sui para convertir la tokenización en algo cotidiano: desde las cosas comunes como creación y gestión de tokens, stake, vesting, lending, renting y muchas más, mercados como dex, hasta novedosas herramientas financieras como los tokens securities. El gran objetivo es construir un mercado de valores tokenizado.
+TOK is an infrastructure built on the Sui blockchain to turn tokenization into something everyday: from common use cases like token creation and management, staking, vesting, lending, renting, and many more, to markets like DEXs, all the way to novel financial tools like security tokens. The big-picture goal is to build a tokenized stock market.
 
-## Estructura del repositorio
+## Repository structure
 
-El repositorio está dividido en dos módulos principales:
+The repository is divided into two main modules:
 
 ### `tok-packages`
 
-Contiene el desarrollo de todos los contratos de TOK hasta el momento:
+Contains the development of all TOK contracts so far:
 
 - `tok_fees`
 - `tok_issuer`
 - `tok_vesting`
 - `tok_staking`
-- `tok_ido` (launchpad descentralizado) — *incompleto*
+- `tok_ido` (decentralized launchpad) — *incomplete*
 
-Estas versiones de los contratos **no son finales**, son experimentales y tendrán ajustes en el corto plazo. Representan solo la base del ecosistema, porque en el futuro se busca lograr cosas mucho más grandes.
+These contract versions are **not final**, they are experimental and will go through adjustments in the short term. They only represent the baseline of the ecosystem, since much bigger things are planned for the future.
 
 ### `tok-frontend`
 
-Contiene todo el diseño de la plataforma, desde la landing hasta los módulos que representan los paquetes de TOK. Estos módulos siguen siendo implementados:
+Contains the full design of the platform, from the landing page to the modules representing the TOK packages. These modules are still being implemented:
 
-- `tok_fees` y `tok_staking`: disponibles en un par de semanas
-- `tok_launchpad`: disponible un par de semanas después, mientras se construye la versión final
+- `tok_fees` and `tok_staking`: available in a couple of weeks
+- `tok_launchpad`: available a couple of weeks after that, while the final version is being built
 
-## Token TOK
+## TOK Token
 
-Se piensa emitir un token TOK como utility para recibir financiamiento y poder implementar las características más grandes de la plataforma, a cambio de la posibilidad de ser dueños del proyecto. Por ende, cuando TOK se convierta en un security, se distribuirán las ganancias a los poseedores del token TOK.
+A TOK utility token is planned for issuance to raise funding and implement the platform's biggest features, in exchange for the possibility of becoming owners of the project. Therefore, once TOK becomes a security, profits will be distributed to TOK token holders.
 
-## Marco legal y objetivo regulatorio
+## Legal framework and regulatory goal
 
-TOK busca ser regulado bajo la Ley LEAD en El Salvador, con el objetivo de convertirse en un emisor de tokens regulado y poder ofrecer más servicios dentro de ese marco legal.
+TOK aims to be regulated under the LEAD Law in El Salvador, with the goal of becoming a regulated token issuer and being able to offer more services within that legal framework.
 
-Obtener este permiso legal es uno de los objetivos centrales del proyecto: es lo que le daría a TOK el respaldo para operar como emisor regulado y, junto con el desarrollo futuro de la plataforma, es la razón por la que se necesita financiamiento.
+Obtaining this legal permit is one of the project's central goals: it's what would give TOK the backing to operate as a regulated issuer, and along with the platform's future development, it's the reason funding is needed.
 
-## Contratos desplegados
+## Deployed contracts
 
-| Contrato      | Package ID |
+| Contract      | Package ID |
 |---------------|------------|
 | `tok_fees`    | `0x05029a11fbcfa5d6959a41cce21681a65ecfbb5ee57967e2626272f188c8b653` |
 | `tok_issuer`  | `0x88288ba5d35289a4410ec0b93c0aae251724b5eab8df81743c44143c72ccbdd4` |
 | `tok_vesting` | `0x2e802e5d290de9ff149e301a4d74be1532472f9fad7c366c96b3d20a2c040de1` |
 | `tok_staking` | `0x9c574ca2f0fd43d5c893e911e9f6d37f104a01ff3efd1e14876af195517d3a5f` |
 
-## Requerimientos
+## Requirements
 
 - [Sui CLI](https://docs.sui.io/guides/developer/getting-started/sui-install)
 - [Node.js](https://nodejs.org/)
 - npm
 
-## Ejecución
+## Running the project
 
 ### tok-frontend (Next.js)
 
@@ -62,11 +62,11 @@ npm run dev
 
 ### tok-packages (Sui Move)
 
-Entrar a cada paquete y correr los tests, por ejemplo:
+Go into each package and run the tests, for example:
 
 ```bash
 cd tok-packages/tok_fees
 sui move test
 ```
 
-Repetir el mismo paso para cada paquete (`tok_issuer`, `tok_vesting`, `tok_staking`, `tok_ido`).
+Repeat the same step for each package (`tok_issuer`, `tok_vesting`, `tok_staking`, `tok_ido`).
